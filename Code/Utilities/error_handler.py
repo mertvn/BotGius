@@ -13,13 +13,13 @@ async def _interaction_error_handler(interaction: discord.Interaction, error: Ex
     - `discord.errors.HTTPException` and `discord.errors.NotFound`: When a HTTP errors occures when sending the response or when discord losses the interaction,
     it tells the user to try again as the error should not be repeated again.
     
-    - Default case: In case the error wasn't handled before, it tells the user that an unknown error occured and ask o tries again or inform Jabro.
+    - Default case: In case the error wasn't handled before, it tells the user that an unknown error occured and ask o tries again or inform Mert.
     """
     if isinstance(error, (discord.errors.HTTPException, discord.errors.NotFound)):
         await interaction.followup.send(content='There was a error when sending you the answer. Please, try using the command again', ephemeral=True)
 
     else:
-        await interaction.followup.send(content='An unknown error occured... Please try again and if the issue persists tell it to Jabro (<@427868172666929160>)', ephemeral=True)
+        await interaction.followup.send(content='An unknown error occured... Please try again and if the issue persists tell it to Mert (<@718823577398411345>)', ephemeral=True)
         print_exception(error)
 
 

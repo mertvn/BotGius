@@ -1,8 +1,8 @@
-from typing import LiteralString
+# from typing import LiteralString
 
 import yaml
 
-def load_yaml_content(yaml_route: LiteralString) -> dict:
+def load_yaml_content(yaml_route: str) -> dict:
     """
     Return some content from a yaml file.
     

@@ -137,7 +137,7 @@ async def tour_create(interaction: discord.Interaction, timer: int = None, size:
     )
 
     pings = Roles().get_ping_roles() if not custom_ping else custom_ping
-    emoji = Emojis().get_other_emoji('20espiando')
+    emoji = Emojis().get_other_emoji('wave')
     content = f'{pings} {emoji}'
     embed = tour.generate_join_embed()
     view = Tour_Create_View(tour=tour)

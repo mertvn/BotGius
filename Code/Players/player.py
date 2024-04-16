@@ -203,8 +203,8 @@ class Player:
         embed = discord.Embed(title=self.amq_name, color=discord.Colour.green())
         embed.set_footer(text=f'Page {page+1} / {max_value+1}')
         embed_user = await client.fetch_user(self.discord_id)
-        embed_url = 'https://animemusicquiz.com'
-        embed_icon_url = 'https://animemusicquiz.com/favicon-32x32.png'
+        embed_url = 'https://erogemusicquiz.com'
+        embed_icon_url = 'https://erogemusicquiz.com/favicon-32x32.png'
 
         # Set page specific embed data
         match page:

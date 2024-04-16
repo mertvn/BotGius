@@ -27,7 +27,7 @@ class Roles:
         self.main_guild_roles_ids: list[int] = roles_data['teams']['main']['roles']
         self.test_guild_roles_ids: list[int] = roles_data['teams']['test']['roles']
 
-        self.pings: list[str] = [roles_data['pings']['bullies'], roles_data['pings']['capos']]
+        self.pings: list[str] = [roles_data['pings']['tour']]
 
     
     def _get_team_roles(self, guild: discord.Guild, role_index: int = 0) -> tuple[discord.Role, list[discord.Role]]:

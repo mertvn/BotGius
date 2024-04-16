@@ -34,17 +34,18 @@ class Main_Controller:
         - Global Players
         - Genres
         """
-        gamemodes_descriptions, self.metronomes, self.items, artists, self.tags, special_lists = get_sheet_data()
+        # todo?
+        # gamemodes_descriptions, self.metronomes, self.items, artists, self.tags, special_lists = get_sheet_data()
         
-        self.gamemodes = Gamemodes_Controller(gamemodes_descriptions)
+        #self.gamemodes = Gamemodes_Controller(gamemodes_descriptions)
 
-        self.artists = Artist_Controller(artists)
-        self.special_lists = SpecialList_Controller(special_lists)
+        #self.artists = Artist_Controller(artists)
+        #self.special_lists = SpecialList_Controller(special_lists)
 
-        global_players = get_global_players()
-        self.global_players = GlobalPlayer_Controller(global_players)
+        #global_players = get_global_players()
+        #self.global_players = GlobalPlayer_Controller(global_players)
 
-        self.genres = [genre.name.replace('_', ' ') for genre in Genres]
+        #self.genres = [genre.name.replace('_', ' ') for genre in Genres]
 
 
     def info(self, type: int) -> list[str]:
