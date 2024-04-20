@@ -37,7 +37,7 @@ async def feedback(interaction: discord.Interaction):
         name = discord.ui.TextInput(
             label='Name',
             style=discord.TextStyle.short,
-            placeholder='Your amq name would be used if left empty',
+            placeholder='Your EMQ name would be used if left empty',
             default='',
             required=False,
             max_length=50
@@ -79,7 +79,7 @@ async def report(interaction: discord.Interaction):
         name = discord.ui.TextInput(
             label='Name',
             style=discord.TextStyle.short,
-            placeholder='Your amq name would be used if left empty',
+            placeholder='Your EMQ name would be used if left empty',
             default='',
             required=False,
             max_length=50

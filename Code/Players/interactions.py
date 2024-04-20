@@ -20,7 +20,7 @@ async def player_register(interaction: discord.Interaction, amq_name: str):
 
     if not register_ok:
         if other_player_ping is None:
-            content = 'You are already registered!\nIf you want to change your amq name use `/player_change_amq` instead'
+            content = 'You are already registered!\nIf you want to change your EMQ name use `/player_change_emq` instead'
         else:
             content = f'`{amq_name}` is already used as the `amq_name` of {other_player_ping}.'
         await interaction.followup.send(content=content, ephemeral=True)
@@ -32,8 +32,8 @@ async def player_register(interaction: discord.Interaction, amq_name: str):
     await interaction.followup.send(content='Registration complete successfully!', ephemeral=True)
 
 @error_handler_decorator()
-async def player_change_amq(interaction: discord.Interaction, new_amq_name: str):
-    """Interaction to handle the `/player_change_amq` command. It modifies the `amq_name` field of the player using the command."""
+async def player_change_emq(interaction: discord.Interaction, new_amq_name: str):
+    """Interaction to handle the `/player_change_emq` command. It modifies the `amq_name` field of the player using the command."""
     await interaction.response.defer(ephemeral=True)
 
     # NOTE Adding any other "new_amq_name" restriction needed?
@@ -52,16 +52,16 @@ async def player_change_amq(interaction: discord.Interaction, new_amq_name: str)
         return
 
     log_thread = await Channels().get_player_change_amq_thread(interaction.client)
-    content = f'{interaction.user.mention} changed their AMQ name:\n'
-    content += f'Old AMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
-    content += f'New AMQ Name: **{discord.utils.escape_markdown(new_amq_name)}**'
+    content = f'{interaction.user.mention} changed their EMQ name:\n'
+    content += f'Old EMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
+    content += f'New EMQ Name: **{discord.utils.escape_markdown(new_amq_name)}**'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())
-    await interaction.followup.send(content='AMQ name changed successfully!', ephemeral=True)
+    await interaction.followup.send(content='EMQ name changed successfully!', ephemeral=True)
 
 
 @error_handler_decorator()
-async def player_change_other_amq(interaction: discord.Interaction, player_old_amq: str, player_new_amq: str):
-    """Interaction to handle the `/player_change_other_amq` command. It modifies the `amq_name` field of the player with `amq_name == player_old_amq`."""
+async def player_change_other_emq(interaction: discord.Interaction, player_old_amq: str, player_new_amq: str):
+    """Interaction to handle the `/player_change_other_emq` command. It modifies the `amq_name` field of the player with `amq_name == player_old_amq`."""
     await interaction.response.defer(ephemeral=True)
 
     # NOTE Make sure to match these restrictions with the player_change_amq ones
@@ -89,11 +89,11 @@ async def player_change_other_amq(interaction: discord.Interaction, player_old_a
         return
 
     log_thread = await Channels().get_player_change_amq_thread(interaction.client)
-    content = f'{interaction.user.mention} changed the AMQ name of {player_mention}:\n'
-    content += f'Old AMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
-    content += f'New AMQ Name: **{discord.utils.escape_markdown(player_new_amq)}**'
+    content = f'{interaction.user.mention} changed the EMQ name of {player_mention}:\n'
+    content += f'Old EMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
+    content += f'New EMQ Name: **{discord.utils.escape_markdown(player_new_amq)}**'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())
-    await interaction.followup.send(content=f'AMQ name of {player_mention} changed successfully!', ephemeral=True)
+    await interaction.followup.send(content=f'EMQ name of {player_mention} changed successfully!', ephemeral=True)
 
 
 @error_handler_decorator()

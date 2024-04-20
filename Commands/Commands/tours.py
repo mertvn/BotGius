@@ -77,7 +77,7 @@ class Tours_Commands(Commands):
         
 
         @client.tree.command(name='tour_players_add', description='Manually add players to the tour')
-        @app_commands.describe(players='AMQ name of the player(s) to add')
+        @app_commands.describe(players='EMQ name of the player(s) to add')
         @app_commands.guild_only
         @app_commands.check(self.is_user_tour_helper)
         async def tour_players_add(interaction: discord.Interaction, players: str):
@@ -85,7 +85,7 @@ class Tours_Commands(Commands):
 
         
         @client.tree.command(name='tour_players_remove', description='Manually remove players to the tour')
-        @app_commands.describe(players='AMQ name of the player(s) to remove')
+        @app_commands.describe(players='EMQ name of the player(s) to remove')
         @app_commands.guild_only
         @app_commands.check(self.is_user_tour_helper)
         async def tour_players_remove(interaction: discord.Interaction, players: str):
@@ -121,7 +121,7 @@ class Tours_Commands(Commands):
         @client.tree.command(name='team_players_add', description='Add players to a team')
         @app_commands.describe(
             team='The team to add the players to',
-            players='AMQ name of the player(s) to add'
+            players='EMQ name of the player(s) to add'
         )
         @app_commands.choices(team=[app_commands.Choice(name=team.name.replace('_', ' '), value=team.value) for team in Teams])
         @app_commands.guild_only
@@ -133,7 +133,7 @@ class Tours_Commands(Commands):
         @client.tree.command(name='team_players_remove', description='Remove players from a team')
         @app_commands.describe(
             team='The team to remove the players from',
-            players='AMQ name of the player(s) to remove'
+            players='EMQ name of the player(s) to remove'
         )
         @app_commands.choices(team=[app_commands.Choice(name=team.name.replace('_', ' '), value=team.value) for team in Teams])
         @app_commands.guild_only

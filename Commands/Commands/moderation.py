@@ -27,7 +27,7 @@ class Moderation_Commands(Commands):
         
         @client.tree.command(name='ban_player', description='Ban/Unban a player')
         @app_commands.describe(
-            amq_name='The AMQ name of the player',
+            amq_name='The EMQ name of the player',
             is_now_banned='Whether you want to ban (True) or unban (False) the user'    
         )
         @app_commands.choices(is_now_banned=[app_commands.Choice(name=str(i), value=int(i)) for i in [True, False]])

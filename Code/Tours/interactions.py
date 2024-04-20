@@ -284,7 +284,7 @@ async def _inform_host_player_left(interaction: discord.Interaction, tour: Tour,
     embed = discord.Embed(colour=discord.Colour.green())
     embed.set_author(name=interaction.user.global_name, icon_url=interaction.user.display_avatar)
     embed.add_field(name='Discord Nickname', value=interaction.user.display_name, inline=False)
-    embed.add_field(name='AMQ Name', value=discord.utils.escape_markdown(player.amq_name), inline=False)
+    embed.add_field(name='EMQ Name', value=discord.utils.escape_markdown(player.amq_name), inline=False)
     embed.add_field(name='From', value=player_from, inline=False)
     
     try:

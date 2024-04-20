@@ -26,7 +26,7 @@ class Gamemodes_Commands(Commands):
         @app_commands.describe(
             name='The name of the gamemode',
             size='The number of players PER TEAM',
-            code='The AMQ code of the gamemode (lobby settings)',
+            code='The EMQ code of the gamemode (room settings)',
             is_it_watched='Whether the gamemode is watched (hybrid counts as watched)',
             is_random_dist_rollable='Whether random is a rollable watched distribution (ignore if not watched)',
             is_weighted_dist_rollable='Whether weighted is a rollable watched distribution (ignore if not watched)',
@@ -95,7 +95,7 @@ class Gamemodes_Commands(Commands):
             )
 
 
-        @client.tree.command(name='gamemode_code', description='Gives you the amq code (room settings) of a gamemode')
+        @client.tree.command(name='gamemode_code', description='Gives you the EMQ code (room settings) of a gamemode')
         @app_commands.describe(gamemode_name='The name of the gamemode which code you want to get')
         async def gamemode_code(interaction: discord.Interaction, gamemode_name: str):
             await interactions.get_code(interaction, gamemode_name)
