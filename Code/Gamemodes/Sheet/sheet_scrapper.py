@@ -17,14 +17,14 @@ def get_global_players() -> list[tuple[str, str, str, str, str]]:
     Return:
     -----------
     A list of tuples, each of them containing the next 5 elements (ordered as follow):
-    - AMQ Name: `str`
-        Tha AMQ name of the player that the list belongs to.
+    - EMQ Name: `str`
+        Tha EMQ name of the player that the list belongs to.
     - List Name: `str`
         The name of the list (in Anilist / MyAnimeList).
     - List From: `str`
         Whether the list is from Anilist or MyAnimeList.
     - List Sections: `str`
-        The sections that must be used when loading the list into your AMQ list.
+        The sections that must be used when loading the list into your EMQ list.
     - Comment: `str`
         A comment that the player has left as additional information.
     """

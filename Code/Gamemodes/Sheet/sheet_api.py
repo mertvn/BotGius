@@ -26,7 +26,7 @@ def _get_artists(artists_worksheet: gspread.worksheet.Worksheet) -> list[tuple[s
     - Second Element: `str`
         The Username (Anilist / MyAnimeList) that has the list.
     - Third Element: `str`
-        The Score to be used in the AMQ settings (if any).
+        The Score to be used in the EMQ settings (if any).
     - Fourth Element: `str`
         The List's section(s) that contain the artist(s) shows (Watching, Completed, etc.).
     - Fifth Element: `str`

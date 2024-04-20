@@ -89,7 +89,7 @@ class Gamemodes_Database:
         - `size`: `int`
             How many players per team does the Gamemode require.
         - `code`: `str`
-            The Code to set the Gamemode's rules in the AMQ lobby.
+            The Code to set the Gamemode's rules in the EMQ lobby.
         - `watched_song_selection`: `bool`
             Whether the gamemode has watched (or random) song selection.
         - `random_song_distribution`: `bool`

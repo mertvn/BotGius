@@ -4,7 +4,7 @@ For reproducibility, this is how the Players's Table was created:
 CREATE TABLE IF NOT EXISTS players(
 
 	id	BIGINT PRIMARY KEY NOT NULL,
-	amq	VARCHAR(50) UNIQUE NOT NULL,
+	emq	VARCHAR(50) UNIQUE NOT NULL,
 	
 	rank VARCHAR(20) DEFAULT 'None',
 	elo INT DEFAULT 0,
@@ -62,7 +62,7 @@ class Players_Database:
         """
         Return a list of tuple containing the Players's data with the following order:
         - `discord_id`
-        - `amq_name`
+        - `emq_name`
         - `rank`
         - `elo`
         - `list_name`
@@ -84,25 +84,25 @@ class Players_Database:
     
     @staticmethod
     @connection_manager
-    def add_player(discord_id: int, amq_name: str, cur: psycopg2.extensions.cursor = None) -> None:
+    def add_player(discord_id: int, emq_name: str, cur: psycopg2.extensions.cursor = None) -> None:
         """
         Add a new Player to the Players Database.\n
         Do NOT add a `cur` value, its a placeholder which value will be replaced.
         """
-        add_player_query = 'INSERT INTO players (id, amq) VALUES (%s, %s)'
-        cur.execute(add_player_query, (discord_id, amq_name))
+        add_player_query = 'INSERT INTO players (id, emq) VALUES (%s, %s)'
+        cur.execute(add_player_query, (discord_id, emq_name))
 
 
     @staticmethod
     @connection_manager
-    def change_player_amq(discord_id: int, new_amq_name: str, cur: psycopg2.extensions.cursor = None) -> None:
+    def change_player_emq(discord_id: int, new_emq_name: str, cur: psycopg2.extensions.cursor = None) -> None:
         """
-        Change the Player's amq name to `new_amq_name` from the `discord_id` player in the Playerd's Database.
+        Change the Player's emq name to `new_emq_name` from the `discord_id` player in the Playerd's Database.
         Do NOT add a `cur` value, its a placeholder which value will be replaced.
         """
-        change_player_amq_query = 'UPDATE players SET amq = %s WHERE id = %s'
-        player = (new_amq_name, discord_id)
-        cur.execute(change_player_amq_query, player)
+        change_player_emq_query = 'UPDATE players SET emq = %s WHERE id = %s'
+        player = (new_emq_name, discord_id)
+        cur.execute(change_player_emq_query, player)
 
     @staticmethod
     @connection_manager

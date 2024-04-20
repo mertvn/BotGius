@@ -1,14 +1,14 @@
 from enum import Enum
 
 class Distributions(Enum):
-    """Enumerate class to represent the possible watched song distributions that an AMQ game can have."""
+    """Enumerate class to represent the possible watched song distributions that an EMQ game can have."""
     Random = 0
     Weighted = 1
     Equal = 2
 
 
 class Type_4(Enum):
-    """Enumerate class to represent the 4 possible song type combinations possible that an AMQ game can have."""
+    """Enumerate class to represent the 4 possible song type combinations possible that an EMQ game can have."""
     OPED = 0
     OPIN = 1
     EDIN = 2
@@ -16,7 +16,7 @@ class Type_4(Enum):
 
 
 class Type_7(Enum):
-    """Enumerate class to represent the 7 song type possibilities that an AMQ game can have."""
+    """Enumerate class to represent the 7 song type possibilities that an EMQ game can have."""
     OP = 0
     ED = 1
     IN = 2

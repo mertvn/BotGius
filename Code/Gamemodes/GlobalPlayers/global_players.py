@@ -7,13 +7,13 @@ class GlobalPlayer:
         Parameters:
         -----------
         - `player_name`: `str`
-            The global player's AMQ name.
+            The global player's EMQ name.
         - `list_name`: `str`
             The name of the list (username from Anilist / MyAnimeList) where the shows are stored.
         - `list_from`: `str`
             Where the list is from (Anilist / MyAnimeList).
         - `list_sections`: `str`
-            The sections from the list that must be used during the AMQ game that contains the shows from the global player.
+            The sections from the list that must be used during the EMQ game that contains the shows from the global player.
         - `comment`: `str`
             A comment that the player has left as additional information.
         """

@@ -10,7 +10,7 @@ class Player:
     def __init__(
         self,
         discord_id: int,
-        amq_name: str,
+        emq_name: str,
         rank: str = 'None',
         elo: int = 0,
         list_name: str = 'TBD',
@@ -26,7 +26,7 @@ class Player:
     ) -> None:
         """Constructor of the Player class."""
         self._discord_id = discord_id
-        self._amq_name = amq_name
+        self._emq_name = emq_name
 
         self._elo = elo     # Unused
         self._rank = rank
@@ -55,12 +55,12 @@ class Player:
         return f'<@{self.discord_id}>'
     
     @property
-    def amq_name(self) -> str:
-        return self._amq_name
+    def emq_name(self) -> str:
+        return self._emq_name
     
-    @amq_name.setter
-    def amq_name(self, new_amq_name: str) -> None:
-        self._amq_name = new_amq_name
+    @emq_name.setter
+    def emq_name(self, new_emq_name: str) -> None:
+        self._emq_name = new_emq_name
 
     @property
     def rank(self) -> Rank:
@@ -200,7 +200,7 @@ class Player:
             page = min_value            # The previous of the first is the last
 
         # Set shared data among profile pages
-        embed = discord.Embed(title=self.amq_name, color=discord.Colour.green())
+        embed = discord.Embed(title=self.emq_name, color=discord.Colour.green())
         embed.set_footer(text=f'Page {page+1} / {max_value+1}')
         embed_user = await client.fetch_user(self.discord_id)
         embed_url = 'https://erogemusicquiz.com'
@@ -263,7 +263,7 @@ class Player:
         if self.rank > other.rank:
             return False
         
-        return self.amq_name.lower() < other.amq_name.lower()
+        return self.emq_name.lower() < other.emq_name.lower()
     
 
     def __add__(self, other: object) -> int:

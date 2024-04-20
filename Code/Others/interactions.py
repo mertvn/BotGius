@@ -59,7 +59,7 @@ async def feedback(interaction: discord.Interaction):
                 player_name = self.name
             else:
                 player = Players_Controller().get_player(new_interaction.user.id)
-                player_name = player.amq_name if player is not None else 'Not Registered'
+                player_name = player.emq_name if player is not None else 'Not Registered'
 
             embed = discord.Embed(title='Feedback', color=discord.Colour.green())
             embed.add_field(name='From', value=player_name, inline=False)
@@ -101,7 +101,7 @@ async def report(interaction: discord.Interaction):
                 player_name = self.name
             else:
                 player = Players_Controller().get_player(new_interaction.user.id)
-                player_name = player.amq_name if player is not None else 'Not Registered'
+                player_name = player.emq_name if player is not None else 'Not Registered'
 
             embed = discord.Embed(title='Report', color=discord.Colour.red())
             embed.add_field(name='From', value=player_name, inline=False)
@@ -120,7 +120,7 @@ async def pick(interaction: discord.Interaction, decision: str):
 
     picks_channel = Channels().get_picks_channel(interaction.client)
     player = Players_Controller().get_player(interaction.user.id)
-    player_name = player.amq_name if player is not None else 'Not Registered'
+    player_name = player.emq_name if player is not None else 'Not Registered'
 
     embed = discord.Embed(title='Pick', color=discord.Colour.green())
     embed.add_field(name='From', value=player_name, inline=False)

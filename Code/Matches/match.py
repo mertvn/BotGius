@@ -22,8 +22,8 @@ class Match:
         For those special gamemodes that requires an additional roll (Artistmania, random tag, etc.), apply that roll.\n
         Return a string representation of the additional roll, or `None` if no additional roll is required for the gamemode.
         """
-        team_1_playes = ', '.join([player.amq_name for player in self.team_1])
-        team_2_players = ', '.join([player.amq_name for player in self.team_2])
+        team_1_playes = ', '.join([player.emq_name for player in self.team_1])
+        team_2_players = ', '.join([player.emq_name for player in self.team_2])
 
         content = f'**Match for gamemode {self.gamemode.name}** between:\n'
         content += f'**Team 1:** {team_1_playes}\n'
@@ -60,10 +60,10 @@ class Match:
             metronomes = ''
             # Team 1
             for player in self.team_1:
-                metronomes += f'**Metronome for {player.amq_name} ->** {Roll.roll(Rolls_Enum.METRONOME, as_str=False)}\n'
+                metronomes += f'**Metronome for {player.emq_name} ->** {Roll.roll(Rolls_Enum.METRONOME, as_str=False)}\n'
             # Team 2
             for player in self.team_2:
-                metronomes += f'**Metronome for {player.amq_name} ->** {Roll.roll(Rolls_Enum.METRONOME, as_str=False)}\n'
+                metronomes += f'**Metronome for {player.emq_name} ->** {Roll.roll(Rolls_Enum.METRONOME, as_str=False)}\n'
             return content + metronomes
 
 

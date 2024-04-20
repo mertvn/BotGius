@@ -27,14 +27,14 @@ class Moderation_Commands(Commands):
         
         @client.tree.command(name='ban_player', description='Ban/Unban a player')
         @app_commands.describe(
-            amq_name='The EMQ name of the player',
+            emq_name='The EMQ name of the player',
             is_now_banned='Whether you want to ban (True) or unban (False) the user'    
         )
         @app_commands.choices(is_now_banned=[app_commands.Choice(name=str(i), value=int(i)) for i in [True, False]])
         @app_commands.check(self.is_user_tour_helper)
-        async def ban_player(interaction: discord.Interaction, amq_name: str, is_now_banned: app_commands.Choice[int]):
+        async def ban_player(interaction: discord.Interaction, emq_name: str, is_now_banned: app_commands.Choice[int]):
             is_now_banned = bool(is_now_banned.value)
-            await interactions.ban_player(interaction, amq_name, is_now_banned)
+            await interactions.ban_player(interaction, emq_name, is_now_banned)
 
 
         @client.tree.command(name='list_banned_players', description='List all banned players')

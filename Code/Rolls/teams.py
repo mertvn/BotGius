@@ -60,7 +60,7 @@ class Teams_Roll:
         All teams will have the same number of players.\n
         All teams will have as similar strength as possible.
         """
-        # Manually sort the players to not take into account the `amq_name` value
+        # Manually sort the players to not take into account the `emq_name` value
         # Sorted based on `rank` and, for those with the same rank, random (so different results can be provided given the same arguments)
         random.shuffle(player_list)
         player_list = sorted(player_list, key=lambda x: x.rank)
@@ -88,7 +88,7 @@ class Teams_Roll:
         All teams will have the same number of players.\n
         Players will be grouped in a team with other players with similar strength.
         """
-        # Manually sort the players to not take into account the `amq_name` value
+        # Manually sort the players to not take into account the `emq_name` value
         # Sorted based on `rank` and, for those with the same rank, random (so different results can be provided given the same arguments)
         random.shuffle(player_list)
         player_list = sorted(player_list, key=lambda x: x.rank)
@@ -107,7 +107,7 @@ class Teams_Roll:
         """Return a string representation for the `teams` rolled."""
         teams_as_str = ''
         for i, team in enumerate(teams):
-            team_players = [f'{player.amq_name} ({player.rank.name})' for player in team]
+            team_players = [f'{player.emq_name} ({player.rank.name})' for player in team]
             teams_as_str += f'**Group {i+1} ({len(team)}):** '
             teams_as_str += ', '.join(team_players)
             teams_as_str += '\n'

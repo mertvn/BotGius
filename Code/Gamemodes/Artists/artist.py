@@ -11,9 +11,9 @@ class Artist:
         - `list_name`: `str`
             The name of the list (username from Anilist / MyAnimeList) where the shows are stored.
         - `score_range`: `str`
-            A string consisting of the Scores that the show(s) which contains songs from the artist(s), stored in the list, have (that must be set in the AMQ room settings).
+            A string consisting of the Scores that the show(s) which contains songs from the artist(s), stored in the list, have (that must be set in the EMQ room settings).
         - `list_sections`: `str`
-            The sections from the list that must be used during the AMQ game that contains the shows from the artist(s).
+            The sections from the list that must be used during the EMQ game that contains the shows from the artist(s).
         - `list_from`: `str`
             Where the list is from (Anilist / MyAnimeList).
         - `author_name`: `str`

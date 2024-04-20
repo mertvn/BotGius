@@ -90,12 +90,12 @@ class Blind_Crews:
             content += f'{match.gamemode.roll_distribution()}\n'
             
             # 3. Add team_1 players
-            team_1_names = [player.amq_name for player in match.team_1]
+            team_1_names = [player.emq_name for player in match.team_1]
             team_1_names = ' '.join(team_1_names)
             content += f'**Team 1:** {team_1_names}\n'
             
             # 4. Add team_2 players 
-            team_2_names = [player.amq_name for player in match.team_2]
+            team_2_names = [player.emq_name for player in match.team_2]
             team_2_names = ' '.join(team_2_names)
             content += f'**Team 2:** {team_2_names}\n\n'
 
@@ -111,11 +111,11 @@ class Blind_Crews:
             gamemode_name = match.gamemode.name
 
             # 2. Get team 1 players names
-            team_1_names = [player.amq_name for player in match.team_1]
+            team_1_names = [player.emq_name for player in match.team_1]
             team_1_names = ' '.join(team_1_names)
 
             # 3. Get team 2 players names
-            team_2_names = [player.amq_name for player in match.team_2]
+            team_2_names = [player.emq_name for player in match.team_2]
             team_2_names = ' '.join(team_2_names)
 
             # 4. Add the data to content

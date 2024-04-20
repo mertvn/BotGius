@@ -13,9 +13,9 @@ class SpecialList:
         - `list_from: `str`
             Where the list is from (Anilist / MyAnimeList).
         - `list_sections: `str`
-            The sections from the list that must be used during the AMQ game that contains the shows from the special list.
+            The sections from the list that must be used during the EMQ game that contains the shows from the special list.
         - `difficulty_range: `str`
-            The difficulty range that has to be set in the AMQ game settings.
+            The difficulty range that has to be set in the EMQ game settings.
         - `special_list_description: `str`
             The description of the special list.
         - `author_name: `str`

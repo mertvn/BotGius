@@ -51,7 +51,7 @@ class Team:
         """Return a `str` with the information about the team's players list escaping markdown characters."""
         players_count = len(self.players)
         players = sorted(self.players) if sort else self.players
-        players_list = [f'{player.amq_name} ({player.rank.name})' for player in players]
+        players_list = [f'{player.emq_name} ({player.rank.name})' for player in players]
         players_data = discord.utils.escape_markdown(', '.join(players_list))
         summary = f'**{self.name} ({players_count}):** {players_data}'
         return summary

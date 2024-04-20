@@ -18,9 +18,9 @@ class Players_Controller:
         return cls._instance
     
     def _set_data(self) -> None:
-        """Retrieve all the Players from the Database and load them into memory through the Players's Catalogs (by id and amq_name)."""
+        """Retrieve all the Players from the Database and load them into memory through the Players's Catalogs (by id and emq_name)."""
         self.players_by_ids: dict[int, Player] = {}
-        self.players_by_amq_name: dict[str, Player] = {}
+        self.players_by_emq_name: dict[str, Player] = {}
 
         players = Players_Database.get_all_players()
         for player_data in players:
@@ -30,7 +30,7 @@ class Players_Controller:
     def _add_player_to_catalogs(
         self,
         discord_id: int,
-        amq_name: str,
+        emq_name: str,
         rank: str = 'None',
         elo: int = 0,
         list_name: str = 'TBD',
@@ -44,10 +44,10 @@ class Players_Controller:
         hated_4v4_gamemode_id: int = None,
         is_banned: bool = False
     ) -> None:
-        """Add a player to the Players's Catalogs (by `discord_id` and `amq_name`)."""
+        """Add a player to the Players's Catalogs (by `discord_id` and `emq_name`)."""
         player = Player(
             discord_id=discord_id,
-            amq_name=amq_name,
+            emq_name=emq_name,
             rank=rank,
             elo=elo,
             list_name=list_name,
@@ -63,19 +63,19 @@ class Players_Controller:
         )
 
         self.players_by_ids[discord_id] = player
-        self.players_by_amq_name[amq_name.lower()] = player
+        self.players_by_emq_name[emq_name.lower()] = player
     
 
-    def _get_player_by_name(self, amq_name: str) -> Player | None:
-        """Return the player which name is the most similar to the `amq_name` provided as argument (or None if a not close enough match was found)."""
-        closest_matches = difflib.get_close_matches(amq_name.lower(), self.players_by_amq_name.keys())
+    def _get_player_by_name(self, emq_name: str) -> Player | None:
+        """Return the player which name is the most similar to the `emq_name` provided as argument (or None if a not close enough match was found)."""
+        closest_matches = difflib.get_close_matches(emq_name.lower(), self.players_by_emq_name.keys())
         closest_match = closest_matches[0] if closest_matches else None
-        return self.players_by_amq_name.get(closest_match) if closest_match is not None else None
+        return self.players_by_emq_name.get(closest_match) if closest_match is not None else None
 
     def get_player(self, id_or_name: int | str) -> Player | None:
         """
-        Return the `Player` object given its `discord_id` or `amq_name`.\n
-        `None` will be returned if the `discord_id` or `amq_name` provided wasn't found in the database.
+        Return the `Player` object given its `discord_id` or `emq_name`.\n
+        `None` will be returned if the `discord_id` or `emq_name` provided wasn't found in the database.
 
         Raise:
         ------
@@ -121,37 +121,37 @@ class Players_Controller:
         return [player for player in self.players_by_ids.values() if player.is_banned]
 
 
-    def register_player(self, discord_id: int, amq_name: str) -> tuple[bool, str | None]:
+    def register_player(self, discord_id: int, emq_name: str) -> tuple[bool, str | None]:
         """
-        Add a player to the Players's Database and Catalogs (by `discord_id` and `amq_name`).\n
-        Only `discord_id` and `amq_name` are required as the rest of the Player's fields will be initialized as the default values.\n
+        Add a player to the Players's Database and Catalogs (by `discord_id` and `emq_name`).\n
+        Only `discord_id` and `emq_name` are required as the rest of the Player's fields will be initialized as the default values.\n
         Return a tuple consisting of:
         - A boolean telling whether the player could be added to the Players's database and catalogs.
-        - A str with the ping of the player that is currently using `amq_name` as their amq name, or `None` if `amq_name` is free to be used.
+        - A str with the ping of the player that is currently using `emq_name` as their emq name, or `None` if `emq_name` is free to be used.
         """
         # Check if user is already registered
         if self.players_by_ids.get(discord_id):
             return False, None
         
-        # Check if amq_name is already used by another player
-        other_player = self.players_by_amq_name.get(amq_name.lower())
+        # Check if emq_name is already used by another player
+        other_player = self.players_by_emq_name.get(emq_name.lower())
         if other_player is not None:
             return False, other_player.discord_ping
 
-        self._add_player_to_catalogs(discord_id, amq_name)
-        Players_Database.add_player(discord_id, amq_name)
+        self._add_player_to_catalogs(discord_id, emq_name)
+        Players_Database.add_player(discord_id, emq_name)
         return True, None
 
 
-    def change_player_amq(self, discord_id: int, new_amq_name: str) -> tuple[bool, str | None]:
+    def change_player_emq(self, discord_id: int, new_emq_name: str) -> tuple[bool, str | None]:
         """
-        Change the player's amq name with `discord_id` to `new_amq_name`.\n
+        Change the player's emq name with `discord_id` to `new_emq_name`.\n
         The method return a tuple which first element is a boolean that can be `False` if:
         - The discord user is not registered in the Players's Database (`discord_id` not found).
-        - The `new_amq_name` chosen is already used by other player.\n
+        - The `new_emq_name` chosen is already used by other player.\n
         The method also return a string which consists of:
-        - The old amq name that the player used to have if the change could be successfully applied (log).
-        - The discord ping of the player that is currently using `new_amq_name` as their amq_name, or `None` if the name is free to be used.
+        - The old emq name that the player used to have if the change could be successfully applied (log).
+        - The discord ping of the player that is currently using `new_emq_name` as their emq_name, or `None` if the name is free to be used.
         """
         player = self.players_by_ids.get(discord_id)
         # Check if the player is registered in the database
@@ -159,31 +159,31 @@ class Players_Controller:
             return False, None
 
         # Check if the new name chosen is free
-        other_player = self.players_by_amq_name.get(new_amq_name.lower())
+        other_player = self.players_by_emq_name.get(new_emq_name.lower())
         if other_player is not None:
             return False, other_player.discord_ping
         
-        # Delete old references (deleting (or modifying the amq name value) from player_by_ids catalog is not needed)
-        del self.players_by_amq_name[player.amq_name.lower()]
+        # Delete old references (deleting (or modifying the emq name value) from player_by_ids catalog is not needed)
+        del self.players_by_emq_name[player.emq_name.lower()]
 
         # Change the name and reinsert the Player in the catalogs with their new name
-        old_amq_name = player.amq_name
-        player.amq_name = new_amq_name
-        self.players_by_amq_name[player.amq_name.lower()] = player
+        old_emq_name = player.emq_name
+        player.emq_name = new_emq_name
+        self.players_by_emq_name[player.emq_name.lower()] = player
 
         # Apply the change into the database
-        Players_Database.change_player_amq(player.discord_id, player.amq_name)
-        return True, old_amq_name
+        Players_Database.change_player_emq(player.discord_id, player.emq_name)
+        return True, old_emq_name
     
 
-    def change_player_rank(self, player_amq_name: str, new_rank: str) -> tuple[bool, Player, str]:
+    def change_player_rank(self, player_emq_name: str, new_rank: str) -> tuple[bool, Player, str]:
         """
-        Change the rank of the player with name == `player_amq_name`.\n
+        Change the rank of the player with name == `player_emq_name`.\n
         Returns a boolean telling the user whether the change could be applied.\n
         It also return the player object and the old rank that the player used to have (log values). 
         """
         # Get the player from name
-        player = self._get_player_by_name(player_amq_name)
+        player = self._get_player_by_name(player_emq_name)
         if player is None:
             return False, None, ''
         
@@ -197,16 +197,16 @@ class Players_Controller:
         return True, player, old_rank
     
 
-    def change_player_ban(self, player_amq_name: str, new_is_banned: bool) -> tuple[bool, bool, Player | None]:
+    def change_player_ban(self, player_emq_name: str, new_is_banned: bool) -> tuple[bool, bool, Player | None]:
         """
-        Change the `is_banned` value of the player with name == `player_amq_name`.\n
+        Change the `is_banned` value of the player with name == `player_emq_name`.\n
         Returns a tuple:
-        - 1: Whether a player with `player_amq_name` name was found.
+        - 1: Whether a player with `player_emq_name` name was found.
         - 2: Whether the changes could be applied (if the `is_banned` value stored was not `new_is_banned` already).
         - 3: The player whom changes were applied to.
         """
         # Get the player from name
-        player = self._get_player_by_name(player_amq_name)
+        player = self._get_player_by_name(player_emq_name)
         if player is None:
             return False, False, None
         

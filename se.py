@@ -6,7 +6,7 @@ import discord
 from Commands.utilities import load_app_commands, load_controllers
 
 class BotGius(discord.Client):
-    """A custom Discord client class for hosting AMQ tours."""
+    """A custom Discord client class for hosting EMQ tours."""
 
     def __init__(self):
         """Initialize the BotGius client."""

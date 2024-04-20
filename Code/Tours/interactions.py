@@ -43,7 +43,7 @@ async def _log_command(interaction: discord.Interaction, command_name: str, tour
 
     log_thread = await Channels().get_commands_usage_thread(interaction.client)
     args = [f'- {arg}\n' for arg in args if arg is not None]
-    content = f'{user.discord_ping} ({user.amq_name}) used command `/{command_name}` in {host.discord_ping} ({host.amq_name})\'s tour'
+    content = f'{user.discord_ping} ({user.emq_name}) used command `/{command_name}` in {host.discord_ping} ({host.emq_name})\'s tour'
     if args:
         content += ' with parameters:\n'
         content += ''.join(args)
@@ -204,7 +204,7 @@ async def tour_edit(interaction: discord.Interaction, timer: int | None, max_siz
         while len(tour.players) > max_size:
             # Move the last players that joined the players's list to the top of the queue (priority over other queue people that were never in the players's list)
             last_player = tour.players[-1]
-            moved_players.insert(0, discord.utils.escape_markdown(last_player.amq_name))
+            moved_players.insert(0, discord.utils.escape_markdown(last_player.emq_name))
             await tour.from_player_list_to_queue(interaction.client, last_player)
         content += ', '.join(moved_players)
 
@@ -284,7 +284,7 @@ async def _inform_host_player_left(interaction: discord.Interaction, tour: Tour,
     embed = discord.Embed(colour=discord.Colour.green())
     embed.set_author(name=interaction.user.global_name, icon_url=interaction.user.display_avatar)
     embed.add_field(name='Discord Nickname', value=interaction.user.display_name, inline=False)
-    embed.add_field(name='EMQ Name', value=discord.utils.escape_markdown(player.amq_name), inline=False)
+    embed.add_field(name='EMQ Name', value=discord.utils.escape_markdown(player.emq_name), inline=False)
     embed.add_field(name='From', value=player_from, inline=False)
     
     try:
@@ -318,7 +318,7 @@ async def tour_players_add(interaction: discord.Interaction, players_str: str):
 
         # Add the players
         join_ok, in_players_list = tour.add_player(player=player, privileged=True)
-        player_name = discord.utils.escape_markdown(player.amq_name)
+        player_name = discord.utils.escape_markdown(player.emq_name)
 
         if not join_ok:
             not_added.append(player_name)
@@ -372,7 +372,7 @@ async def tour_players_remove(interaction: discord.Interaction, players_str: str
 
         # Remove the players
         removed, from_active = await tour.remove_player(client=interaction.client, player=player)
-        player_name = discord.utils.escape_markdown(player.amq_name)
+        player_name = discord.utils.escape_markdown(player.emq_name)
 
         if not removed:
             not_in_tour.append(player_name)
@@ -516,7 +516,7 @@ async def team_players_add(interaction: discord.Interaction, team_index: int, pl
         # Add the player
         added_ok = await tour.add_to_team(interaction.client, team_index, player)
         if not added_ok:
-            player_name = discord.utils.escape_markdown(player.amq_name)
+            player_name = discord.utils.escape_markdown(player.emq_name)
             not_added.append(player_name)
 
     # Inform the host
@@ -562,7 +562,7 @@ async def team_players_remove(interaction: discord.Interaction, team_index: int,
         # Remove the player
         removed_ok = await tour.remove_from_team(interaction.client, team_index, player)
         if not removed_ok:
-            player_name = discord.utils.escape_markdown(player.amq_name)
+            player_name = discord.utils.escape_markdown(player.emq_name)
             not_removed.append(player_name)
 
     # Inform the host

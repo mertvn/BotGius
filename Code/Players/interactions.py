@@ -10,68 +10,68 @@ from Code.Gamemodes.Gamemodes.gamemode import Gamemode
 from Code.Others.channels import Channels
 
 @error_handler_decorator()
-async def player_register(interaction: discord.Interaction, amq_name: str):
+async def player_register(interaction: discord.Interaction, emq_name: str):
     """Interaction to handle the `/player_register` command. It stores in the player's Database and Catalog the new player created with the provided information."""
     await interaction.response.defer(ephemeral=True)
     
-    amq_name = amq_name.replace(' ', '_')
-    register_ok, other_player_ping = Players_Controller().register_player(discord_id=interaction.user.id, amq_name=amq_name)
-    amq_name = discord.utils.escape_markdown(amq_name)
+    emq_name = emq_name.replace(' ', '_')
+    register_ok, other_player_ping = Players_Controller().register_player(discord_id=interaction.user.id, emq_name=emq_name)
+    emq_name = discord.utils.escape_markdown(emq_name)
 
     if not register_ok:
         if other_player_ping is None:
             content = 'You are already registered!\nIf you want to change your EMQ name use `/player_change_emq` instead'
         else:
-            content = f'`{amq_name}` is already used as the `amq_name` of {other_player_ping}.'
+            content = f'`{emq_name}` is already used as the `emq_name` of {other_player_ping}.'
         await interaction.followup.send(content=content, ephemeral=True)
         return
 
     log_thread = await Channels().get_player_register_thread(interaction.client)
-    content = f'{interaction.user.mention} registered as **{amq_name}**'
+    content = f'{interaction.user.mention} registered as **{emq_name}**'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())
     await interaction.followup.send(content='Registration complete successfully!', ephemeral=True)
 
 @error_handler_decorator()
-async def player_change_emq(interaction: discord.Interaction, new_amq_name: str):
-    """Interaction to handle the `/player_change_emq` command. It modifies the `amq_name` field of the player using the command."""
+async def player_change_emq(interaction: discord.Interaction, new_emq_name: str):
+    """Interaction to handle the `/player_change_emq` command. It modifies the `emq_name` field of the player using the command."""
     await interaction.response.defer(ephemeral=True)
 
-    # NOTE Adding any other "new_amq_name" restriction needed?
+    # NOTE Adding any other "new_emq_name" restriction needed?
     # (Doing the checks here instead of in controller to obtain easier the modified name for log purposes)
     # Make sure the name does not contains spaces
-    new_amq_name = new_amq_name.replace(' ', '_')
+    new_emq_name = new_emq_name.replace(' ', '_')
     
-    change_amq_ok, log_value = Players_Controller().change_player_amq(discord_id=interaction.user.id, new_amq_name=new_amq_name)
+    change_emq_ok, log_value = Players_Controller().change_player_emq(discord_id=interaction.user.id, new_emq_name=new_emq_name)
     
-    if not change_amq_ok:
+    if not change_emq_ok:
         if log_value is None:
             content = 'You are not registered in the players\'s database. Use `/player_register` instead.'
         else:
-            content = f'The change couldn\'t be applied as `{discord.utils.escape_markdown(new_amq_name)}` is already used as the `amq_name` of {log_value}.'
+            content = f'The change couldn\'t be applied as `{discord.utils.escape_markdown(new_emq_name)}` is already used as the `emq_name` of {log_value}.'
         await interaction.followup.send(content=content, ephemeral=True)
         return
 
-    log_thread = await Channels().get_player_change_amq_thread(interaction.client)
+    log_thread = await Channels().get_player_change_emq_thread(interaction.client)
     content = f'{interaction.user.mention} changed their EMQ name:\n'
     content += f'Old EMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
-    content += f'New EMQ Name: **{discord.utils.escape_markdown(new_amq_name)}**'
+    content += f'New EMQ Name: **{discord.utils.escape_markdown(new_emq_name)}**'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())
     await interaction.followup.send(content='EMQ name changed successfully!', ephemeral=True)
 
 
 @error_handler_decorator()
-async def player_change_other_emq(interaction: discord.Interaction, player_old_amq: str, player_new_amq: str):
-    """Interaction to handle the `/player_change_other_emq` command. It modifies the `amq_name` field of the player with `amq_name == player_old_amq`."""
+async def player_change_other_emq(interaction: discord.Interaction, player_old_emq: str, player_new_emq: str):
+    """Interaction to handle the `/player_change_other_emq` command. It modifies the `emq_name` field of the player with `emq_name == player_old_emq`."""
     await interaction.response.defer(ephemeral=True)
 
-    # NOTE Make sure to match these restrictions with the player_change_amq ones
-    player_new_amq = player_new_amq.replace(' ', '_')
+    # NOTE Make sure to match these restrictions with the player_change_emq ones
+    player_new_emq = player_new_emq.replace(' ', '_')
     
-    # Get the discord id of the player with amq name == player_old_amq
-    player = Players_Controller().get_player(player_old_amq)
+    # Get the discord id of the player with emq name == player_old_emq
+    player = Players_Controller().get_player(player_old_emq)
 
     if player is None:
-        content = f'A player with a similar enough amq_name to "**{player_old_amq}**" couldn\'t be found'
+        content = f'A player with a similar enough emq_name to "**{player_old_emq}**" couldn\'t be found'
         await interaction.followup.send(content=content, ephemeral=True)
         return
 
@@ -81,23 +81,23 @@ async def player_change_other_emq(interaction: discord.Interaction, player_old_a
     except (discord.errors.NotFound, discord.errors.HTTPException):
         player_mention = '(???)'
 
-    change_amq_ok, log_value = Players_Controller().change_player_amq(discord_id=player.discord_id, new_amq_name=player_new_amq)
+    change_emq_ok, log_value = Players_Controller().change_player_emq(discord_id=player.discord_id, new_emq_name=player_new_emq)
     
-    if not change_amq_ok:
-        content = f'The change couldn\'t be applied as `{discord.utils.escape_markdown(player_new_amq)}` is already used as the `amq_name` of {log_value}.'
+    if not change_emq_ok:
+        content = f'The change couldn\'t be applied as `{discord.utils.escape_markdown(player_new_emq)}` is already used as the `emq_name` of {log_value}.'
         await interaction.followup.send(content=content, ephemeral=True)
         return
 
-    log_thread = await Channels().get_player_change_amq_thread(interaction.client)
+    log_thread = await Channels().get_player_change_emq_thread(interaction.client)
     content = f'{interaction.user.mention} changed the EMQ name of {player_mention}:\n'
     content += f'Old EMQ Name: **{discord.utils.escape_markdown(log_value)}**\n'
-    content += f'New EMQ Name: **{discord.utils.escape_markdown(player_new_amq)}**'
+    content += f'New EMQ Name: **{discord.utils.escape_markdown(player_new_emq)}**'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())
     await interaction.followup.send(content=f'EMQ name of {player_mention} changed successfully!', ephemeral=True)
 
 
 @error_handler_decorator()
-async def player_get_profile(interaction: discord.Interaction, amq_name: str, discord_name: str):
+async def player_get_profile(interaction: discord.Interaction, emq_name: str, discord_name: str):
     """
     Interaction to handle the `/player_get_profile` command. It displays an embed with information abou the user
     and a view with 2 buttons that allows the users to display more information abou them.
@@ -124,14 +124,14 @@ async def player_get_profile(interaction: discord.Interaction, amq_name: str, di
     await interaction.response.defer(ephemeral=False)
     
     # Obtain the player:
-    # - If neither amq_name nor discord_name were provided -> obtain the player who is using the command
-    # - If both amq_name and discord_name were provided -> amq_name value is used (discord_name is ignored)
-    if not amq_name and not discord_name:
+    # - If neither emq_name nor discord_name were provided -> obtain the player who is using the command
+    # - If both emq_name and discord_name were provided -> emq_name value is used (discord_name is ignored)
+    if not emq_name and not discord_name:
         player = Players_Controller().get_player(interaction.user.id)
-    elif not amq_name:
+    elif not emq_name:
         player = Players_Controller().get_player_from_discord_name(interaction.guild, discord_name)
     else:
-        player = Players_Controller().get_player(amq_name)
+        player = Players_Controller().get_player(emq_name)
     
     # Check if player was obtained successfully
     if player is None:
@@ -219,18 +219,18 @@ async def player_change_mode(interaction: discord.Interaction, type: discord.app
 
 
 @error_handler_decorator()
-async def player_change_rank(interaction: discord.Interaction, amq_name: str, new_rank: str):
-    """Interaction to handle the `/player_change_rank` command. It modifies the `rank` field of the player with `name` == `amq_name`."""
+async def player_change_rank(interaction: discord.Interaction, emq_name: str, new_rank: str):
+    """Interaction to handle the `/player_change_rank` command. It modifies the `rank` field of the player with `name` == `emq_name`."""
     await interaction.response.defer(ephemeral=True)
 
-    applied, player, old_rank = Players_Controller().change_player_rank(amq_name, new_rank)
+    applied, player, old_rank = Players_Controller().change_player_rank(emq_name, new_rank)
     if not applied:
-        content = f'A player with name "{amq_name}" couldn\'t be found'
+        content = f'A player with name "{emq_name}" couldn\'t be found'
         await interaction.followup.send(content=content, ephemeral=True)
         return
 
     log_thread = await Channels().get_player_change_rank_thread(interaction.client)
-    content = f'{interaction.user.mention} modified the rank of {player.discord_ping} ({player.amq_name})\n'
+    content = f'{interaction.user.mention} modified the rank of {player.discord_ping} ({player.emq_name})\n'
     content += f'- **Old Rank:** {old_rank}\n'
     content += f'- **New Rank:** {player.rank.name}'
     await log_thread.send(content=content, allowed_mentions=discord.AllowedMentions.none())

@@ -212,7 +212,7 @@ class Tour:
         """Return a `str` with the information about the players's list escaping markdown characters."""
         players_count = len(self.players)
         players = sorted(self.players) if sort else self.players
-        players_list = [f'{player.amq_name} ({player.rank.name})' for player in players]
+        players_list = [f'{player.emq_name} ({player.rank.name})' for player in players]
         players_data = discord.utils.escape_markdown(', '.join(players_list))
         summary = f'**Players ({players_count}):** {players_data}'
         return summary
@@ -221,7 +221,7 @@ class Tour:
         """Return a `str` with the information about the players's queue escaping markdown characters."""
         queue_count = len(self.queue)
         queue = sorted(self.queue) if sort else self.queue
-        queue_list = [f'{player.amq_name} ({player.rank.name})' for player in queue]
+        queue_list = [f'{player.emq_name} ({player.rank.name})' for player in queue]
         queue_data = discord.utils.escape_markdown(', '.join(queue_list))
         summary = f'**Queue ({queue_count}):** {queue_data}'
         return summary
@@ -236,9 +236,9 @@ class Tour:
     
 
     def get_tour_player(self, player_name: str) -> Player | None:
-        """Given the name of a player, return the closest match among all the tours players to `player.amq_name` (or `None` if a close enough match couldn't be found)."""
-        players_by_names = {player.amq_name.lower(): player for player in self.players}
-        possibilities = [player.amq_name.lower() for player in self.players]
+        """Given the name of a player, return the closest match among all the tours players to `player.emq_name` (or `None` if a close enough match couldn't be found)."""
+        players_by_names = {player.emq_name.lower(): player for player in self.players}
+        possibilities = [player.emq_name.lower() for player in self.players]
         closest_matches = difflib.get_close_matches(player_name.lower(), possibilities)
         
         if not closest_matches:
@@ -391,7 +391,7 @@ class Tour:
                 players.append(player)
         
         players = sorted(players)
-        players_data = [f'{discord.utils.escape_markdown(player.amq_name)} ({player.rank.name})' for player in players]
+        players_data = [f'{discord.utils.escape_markdown(player.emq_name)} ({player.rank.name})' for player in players]
         players_str = ', '.join(players_data)
         answer = f'**Not in team ({len(players)})**: {players_str}'
         return answer

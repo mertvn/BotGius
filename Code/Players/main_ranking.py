@@ -95,13 +95,13 @@ class Ranking:
         selected_rank = self.ranks_by_values[rank_value]
 
         # Get all the players with rank == rank_value
-        all_players = list(Players_Controller().players_by_amq_name.values())
+        all_players = list(Players_Controller().players_by_emq_name.values())
         all_players_in_rank = filter(lambda player: player.rank == selected_rank, all_players)
 
         # Sort the players
         all_players_in_rank = sorted(list(all_players_in_rank))
 
-        # Get all the players identification: "amq_name (discord_user)"
+        # Get all the players identification: "emq_name (discord_user)"
         all_discords_in_rank: list[discord.Member] = []
         all_players_in_rank_copy = copy(all_players_in_rank)
 
@@ -114,7 +114,7 @@ class Ranking:
                 all_players_in_rank.remove(player)
 
         all_names_in_rank = [
-            f'**{discord.utils.escape_markdown(player.amq_name)}** ({discord.utils.escape_markdown(discord_member.display_name)})'
+            f'**{discord.utils.escape_markdown(player.emq_name)}** ({discord.utils.escape_markdown(discord_member.display_name)})'
             for player, discord_member in zip(all_players_in_rank, all_discords_in_rank)
         ]
 
