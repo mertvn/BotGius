@@ -11,7 +11,7 @@ class BotGius(discord.Client):
     def __init__(self):
         """Initialize the BotGius client."""
         super().__init__(intents=discord.Intents.all())
-        self.sync_commands = False
+        self.sync_commands = True
         self.tree = discord.app_commands.CommandTree(self)
         load_app_commands(self)
         load_controllers()

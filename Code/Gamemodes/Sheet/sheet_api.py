@@ -1,6 +1,6 @@
 """
-This is the functionality required for loading into memory the data from Jabro's sheet using the Google API.
-Sheet: https://docs.google.com/spreadsheets/d/1VxqdLA3T_coSpoFXhSnaNgAk3BZ2XQ7drvNgcUf6OXQ/
+This is the functionality required for loading into memory the data from Zippy's sheet using the Google API.
+Sheet: https://docs.google.com/spreadsheets/d/1uhRpdD6QwVBbK7bpWwkgwaBGW6KmTXPHd7Hi5vEj9y0/
 """
 
 import os
@@ -8,7 +8,7 @@ import os
 import gspread
 
 
-_MAIN_SHEET_KEY = '1VxqdLA3T_coSpoFXhSnaNgAk3BZ2XQ7drvNgcUf6OXQ'
+_MAIN_SHEET_KEY = '1uhRpdD6QwVBbK7bpWwkgwaBGW6KmTXPHd7Hi5vEj9y0'
 
 
 def _get_gamemodes_description(descriptions_worksheet: gspread.worksheet.Worksheet) -> dict[str, str]:

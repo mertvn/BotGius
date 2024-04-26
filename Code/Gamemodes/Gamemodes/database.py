@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS gamemodes(
 	
 	name VARCHAR(50) UNIQUE NOT NULL,
 	size INT NOT NULL,
-	code VARCHAR(200) NOT NULL,
+	code TEXT NOT NULL,
 	
 	watched BOOL NOT NULL,
 	random BOOL NOT NULL,
