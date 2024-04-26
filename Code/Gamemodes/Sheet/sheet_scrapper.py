@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/u/0/d/155CSxnOt54M16DvY7vNeBuKnup1WVfX8ARoOqSFcCZ0/gviz/tq?tqx=out:html&tq&gid=1'
+_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/u/0/d/1V8DRx08JfZK3pgaSNgWqP22-kKf2nVjUsq3NerQtd0U/gviz/tq?tqx=out:html&tq&gid=1'
 
 
 def get_global_players() -> list[tuple[str, str, str, str, str]]:
